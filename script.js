@@ -1,7 +1,27 @@
-let username= "Angel";
-let age = 20;
+let btn = document.getElementById('addBtn');
+let taskInput = document.getElementById('taskInput');
+let taskList = document.getElementById('taskList');
 
-console.log(username , age)
+btn.addEventListener('click', function() {
+    let input = taskInput.value;
+    if(input === ""){
+        alert("Please enter a task");
+        return;
+    }
+    let li = document.createElement('li');
+    li.textContent = input;
 
-age = age-1;
-console.log(age);
+    let deleteBtn = document.createElement('button');
+    deleteBtn.textContent = "Delete";
+
+    li.appendChild(deleteBtn);
+    taskList.appendChild(li);
+
+    taskInput.value = "";
+})
+
+taskList.addEventListener("click" , function(event){
+    if(event.target.tagName === "BUTTON"){
+        event.target.parentElement.remove();
+    }
+})
