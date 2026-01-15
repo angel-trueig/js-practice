@@ -56,3 +56,16 @@ const[,,,fourth]= skills;
 console.log(fourth);
 
 
+//spread operator
+
+const moreSkills = ["PHP", "Swift"];
+
+const allSkills = [...skills , ...moreSkills];
+console.log(allSkills);
+
+//rest
+function sum(...numbers){
+    return numbers.reduce((acc,curr)=>acc*curr , 1);
+}
+
+console.log(sum(1,2,3,4,5));    
