@@ -1,27 +1,56 @@
-let btn = document.getElementById('addBtn');
-let taskInput = document.getElementById('taskInput');
-let taskList = document.getElementById('taskList');
+const taskInput = document.getElementById('taskInput');
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskList = document.getElementById('taskList');
 
-btn.addEventListener('click', function() {
-    let input = taskInput.value;
-    if(input === ""){
-        alert("Please enter a task");
-        return;
-    }
-    let li = document.createElement('li');
-    li.textContent = input;
+function getLocalTasks(){
+    return JSON.parse(localStorage.getItem('tasks')) || [];
 
-    let deleteBtn = document.createElement('button');
-    deleteBtn.textContent = "Delete";
+};
 
-    li.appendChild(deleteBtn);
-    taskList.appendChild(li);
+function saveLocalTasks(tasks){
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
-    taskInput.value = "";
-})
+function render(){
+    taskList.innerHTML = '';
+    const tasks = getLocalTasks();
 
-taskList.addEventListener("click" , function(event){
-    if(event.target.tagName === "BUTTON"){
-        event.target.parentElement.remove();
-    }
-})
+    tasks.forEach(task =>{
+        const li = document.createElement('li');
+        li.textContent = task.text;
+
+        const deletebtn = document.createElement('button');
+        deletebtn.textContent = "Delete";
+        deletebtn.addEventListener('click', () =>{
+            deleteTask(task.id);
+        });
+        li.appendChild(deletebtn);
+        taskList.appendChild(li);
+        });
+    };
+
+function addTask(){
+    const text = taskInput.value;
+
+    if(text ==="") return;
+    const tasks = getLocalTasks();
+
+    const newTask = {
+        id:Date.now(),
+        text:text
+    };
+    tasks.push(newTask);
+    saveLocalTasks(tasks);
+    taskInput.value = '';
+    render();
+};
+
+function deleteTask(id){
+    let tasks = getLocalTasks();
+    tasks= tasks.filter(task => task.id !== id);
+    saveLocalTasks(tasks);
+    render();
+}
+addTaskBtn.addEventListener('click', addTask);
+
+render();
