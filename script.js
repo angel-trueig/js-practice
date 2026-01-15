@@ -77,7 +77,7 @@ async function fetchData(){
 }
 fetchData(); */
 
-fetch('https://jsonplaceholder.typicode.com/posts/1')
+/* fetch('https://jsonplaceholder.typicode.com/posts/1')
 .then(response=>response.json())
 .then(data=>{
     console.log(data.body);
@@ -85,4 +85,57 @@ fetch('https://jsonplaceholder.typicode.com/posts/1')
 .catch(err=>{
     console.log(err.message);
 })
+ */
+/* async function getPost(){
+    try{
+        const res=  await fetch("https://jsonplaceholder.typicode.com/posts/1");
+        const data = await res.json();
+        console.log(data);
+    }
+    catch(err){
+        console.log(err.message);
+    }
+};
+getPost(); */
 
+
+//custom error:
+/* console.log("Start");
+class ValidateError extends Error{
+    constructor(message){
+        super(message);
+        this.name="ValidateError";
+    }
+
+}
+
+function User(age){
+    if(age < 18){
+        throw new ValidateError("user is not valid");
+    }
+}
+
+
+try{
+    User(15);
+}catch(err){
+    if(err instanceof ValidateError){
+        console.log("validation error",err.message);
+    }else{
+        console.log("unknown error");
+    }
+} */
+
+function divide(a, b) {
+    let result = a / b;
+    return result;
+}
+
+function calculate() {
+    let x = 10;
+    let y = undefined;
+    let output = divide(x, y);
+    console.log(output);
+}
+
+calculate();
