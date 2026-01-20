@@ -74,4 +74,4 @@ newBtn.addEventListener("click",newGame);
 function updateTurn(){
     let turnDisplay = document.getElementById('turn');
     turnDisplay.innerText = turnO ? "Turn : O" : "Turn : X";
-}
+};
